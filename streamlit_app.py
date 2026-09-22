@@ -93,10 +93,10 @@ def export_value(field, value):
         raise ValueError(f"{field['label']}: informe uma data válida no formato DD/MM/AAAA.") from exc
 
 
-def render_readonly_record(record, title=None):
+def render_readonly_record(record, title=None, fields=None):
     if title:
         st.markdown(f"### {title}")
-    fields = record["fields"]
+    fields = fields if fields is not None else record["fields"]
     for start in range(0, len(fields), 3):
         row = fields[start:start + 3]
         columns = st.columns(3)
@@ -109,10 +109,10 @@ def render_readonly_record(record, title=None):
                 )
 
 
-def render_editable_record(record, title=None):
+def render_editable_record(record, title=None, fields=None):
     if title:
         st.markdown(f"### {title}")
-    fields = record["fields"]
+    fields = fields if fields is not None else record["fields"]
     for start in range(0, len(fields), 3):
         row = fields[start:start + 3]
         columns = st.columns([field_width(field) for field in row])
@@ -126,6 +126,36 @@ def render_editable_record(record, title=None):
                     help=field["desc"] or f"Tamanho: {field['size']}",
                     key=f"field_{record['index']}_{field['key']}",
                 )
+
+
+def render_field_group(record, title, keys, editing):
+    selected = [field for field in record["fields"] if field["key"] in keys]
+    if not selected:
+        return set()
+    if editing:
+        render_editable_record(record, title, selected)
+    else:
+        render_readonly_record(record, title, selected)
+    return {field["key"] for field in selected}
+
+
+def render_procedure_table(records):
+    if not records:
+        st.caption("Esta APAC nao possui procedimentos.")
+        return
+    table = []
+    for number, record in enumerate(records, 1):
+        values = {field["key"]: display_value(field) for field in record["fields"]}
+        table.append({
+            "#": number,
+            "Procedimento": values.get("pap_codproc", ""),
+            "Descrição": record["description"],
+            "CBO": values.get("pap_cbo", ""),
+            "Qtd.": values.get("pap_qtdprod", ""),
+            "CNS executante": values.get("pap_cns_terc", ""),
+            "CNES terceiro": values.get("pap_cnes_terc", ""),
+        })
+    st.dataframe(table, hide_index=True, use_container_width=True)
 
 
 def collect_changes(detail):
@@ -205,12 +235,33 @@ variable_records = [record for record in detail["records"] if record["type"] not
 procedure_records = [record for record in detail["records"] if record["type"] == "13"]
 
 with st.container(border=True):
-    st.markdown("### Visualização da APAC")
-    for record in body_records:
-        if editing:
-            render_editable_record(record, "Dados da APAC")
-        else:
-            render_readonly_record(record, "Dados da APAC")
+    st.markdown("### Dados da APAC")
+    if body_records:
+        body = body_records[0]
+        used = set()
+        used |= render_field_group(body, "Identificação da APAC", {
+            "apa_apacant", "apa_num", "apa_codsol", "apa_codcnes", "apa_dtiinval",
+            "apa_dtfimval", "apa_tipapac", "apa_motsaida", "apa_dtobitoalta",
+        }, editing)
+        used |= render_field_group(body, "Identificação do usuário", {
+            "apa_nascpcnte", "apa_cpfpcnte", "apa_cnspct", "apa_semcpf", "apa_strua",
+            "apa_nomepcnte", "apa_nomemae", "apa_nomeresp_pac", "apa_raca", "apa_etnia",
+            "apa_datanascim",
+        }, editing)
+        used |= render_field_group(body, "Endereço e contato", {
+            "apa_ceppcnte", "apa_logpcnte", "apa_numpcnte", "apa_cplpcnte", "apa_bairro",
+            "apa_munpcnte", "apa_telcontato", "apa_email",
+        }, editing)
+        used |= render_field_group(body, "Solicitação e autorização", {
+            "apa_carate", "apa_nomeresp_med", "apa_cnsres", "apa_datsol", "apa_nomediretor",
+            "apa_cnsdir", "apa_dataut", "apa_codemis",
+        }, editing)
+        remaining = [field for field in body["fields"] if field["key"] not in used and field["key"] not in {"apa_corpo", "apa_cmp"}]
+        if remaining:
+            if editing:
+                render_editable_record(body, "Outras informações", remaining)
+            else:
+                render_readonly_record(body, "Outras informações", remaining)
 
 with st.container(border=True):
     st.markdown("### Dados complementares")
@@ -227,12 +278,10 @@ with st.container(border=True):
     st.markdown(f"### Procedimentos ({len(procedure_records)})")
     st.caption("Modo de edição ativo." if editing else "Somente visualização. Use Editar APAC para alterar os dados.")
     if procedure_records:
-        for number, record in enumerate(procedure_records, 1):
-            title = f"Procedimento {number}: {record['description'] or 'Descricao nao encontrada'}"
-            if editing:
-                render_editable_record(record, title)
-            else:
-                render_readonly_record(record, title)
+        render_procedure_table(procedure_records)
+        if editing:
+            for number, record in enumerate(procedure_records, 1):
+                render_editable_record(record, f"Editar procedimento {number}")
     else:
         st.caption("Esta APAC nao possui procedimentos.")
 
