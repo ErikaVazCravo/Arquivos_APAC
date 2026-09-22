@@ -1,0 +1,43 @@
+040009Atendimento/acompanhamento em reabilitação física, mental, visual, auditiva e múltiplas deficiências202608
+040013Atendimento/acompanhamento de diagnóstico de doenças endocrinas/metabólicas e nutricionais          202608
+040017Nefrologia                                                                                          202608
+040024Cirurgia do aparelho digestivo, orgãos anexos e parede abdominal(inclui pré e pós operatório)       202608
+040028Outras cirurgias plásticas/reparadoras                                                              202608
+040030Sequenciais                                                                                         202608
+040032Transplantes de orgãos, tecidos e células                                                           202608
+040033Medicamentos para transplante                                                                       202608
+040038OPM para transplantes                                                                               202608
+040041Central Nacional de Regulação de Alta Complexidade (CNRAC)                                          202608
+040044Redesignação e Acompanhamento                                                                       202608
+040049Implementar Cirg. CV Pediátrica                                                                     202608
+040055Transplante - Histocompatibilidade                                                                  202608
+040062Doenças Raras                                                                                       202608
+040063Cadeiras de Rodas                                                                                   202608
+040065Medicamentos em Urgência                                                                            202608
+040066Cirurgias Eletivas - Componente Único                                                               202608
+040067Atenção Especializada em Saúde Auditiva                                                             202608
+040068Terapias Especializadas em Angiologia                                                               202608
+040069Tratamento de Doença Macular                                                                        202608
+040070OPME Não Relacionados ao Ato Cirúrgico                                                              202608
+040071Diagnóstico/tratamento em oncologia                                                                 202608
+040072Diagnóstico de trombofilia em gestante                                                              202608
+040073Reabilitação Pós-COVID-19                                                                           202608
+040074Telemedicina em Urgência                                                                            202608
+040075Fisioterapia Cardiovascular                                                                         202608
+040076Hemodinâmica em atendimento de urgência                                                             202608
+040077Exames Sorológicos e Imunológicos                                                                   202608
+040078QualiSUS Cardio                                                                                     202608
+040079Pré-cirúrgico em Cirurgias Prioritárias                                                             202608
+040080Programa Agora Tem Especialistas -Componente Cirúrgico                                              202608
+040081Síndrome Respiratória Aguda Grave - SRAG                                                            202608
+040082Alta Complexidade em Cardiologia                                                                    202608
+040083Cirurgia da Face e do Sistema Estomatognático                                                       202608
+040084Neurocirurgias                                                                                      202608
+040085Exames coprológicos                                                                                 202608
+040086Programa Agora Tem Especialistas -Componente Ambulatorial                                           202608
+040087Saúde Bucal                                                                                         202608
+040088Radioterapia                                                                                        202608
+040089Recursos Vinculados a Parcela Única                                                                 202608
+040090Recursos Vinculados a Emendas Parlamentares                                                         202608
+040091Materno Infântil                                                                                    202608
+040092Saúde da Mulher                                                                                     202608

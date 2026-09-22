@@ -1,0 +1,7 @@
+01Atenção Básica (PAB)                                                                                202608
+02Assistência Farmacêutica                                                                            202608
+04Fundo de Ações Estratégicas e Compensações (FAEC)                                                   202608
+05Incentivo - MAC                                                                                     202608
+06Média e Alta Complexidade (MAC)                                                                     202608
+07Vigilância em Saúde                                                                                 202608
+08Gestão do SUS                                                                                       202608

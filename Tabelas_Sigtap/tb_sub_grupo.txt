@@ -1,0 +1,70 @@
+0901Atenção em Oncologia                                                                                202608
+0301Consultas / Atendimentos / Acompanhamentos                                                          202608
+0201Coleta de material                                                                                  202608
+0101Ações coletivas/individuais em saúde                                                                202608
+0401Pequenas cirurgias e cirurgias de pele, tecido subcutâneo e mucosa                                  202608
+0701Órteses, próteses e materiais especiais não relacionados ao ato cirúrgico                           202608
+0601Medicamentos de dispensação excepcional                                                             202608
+0501Coleta e exames para fins de doação de orgãos, tecidos e células e de transplante                   202608
+0801Ações relacionadas ao estabelecimento                                                               202608
+0302Fisioterapia                                                                                        202608
+0202Diagnóstico em laboratório clínico                                                                  202608
+0102Vigilância em saúde                                                                                 202608
+0902Atenção em Cardiologia                                                                              202608
+0802Ações relacionadas ao atendimento                                                                   202608
+0702Órteses, próteses e materiais especiais relacionados ao ato cirúrgico                               202608
+0602Medicamentos estratégicos                                                                           202608
+0502Avaliação de morte encefálica                                                                       202608
+0402Cirurgia de glândulas endócrinas                                                                    202608
+0403Cirurgia do sistema nervoso central e periférico                                                    202608
+0303Tratamentos clínicos (outras especialidades)                                                        202608
+0803Autorização / regulação                                                                             202608
+0203Diagnóstico por anatomia patológica e citopatologia                                                 202608
+0603Medicamentos de âmbito hospitalar e urgência                                                        202608
+0903Atenção em Ortopedia                                                                                202608
+0503Ações relacionadas à doação de orgãos e tecidos para transplante                                    202608
+0404Cirurgia das vias aéreas superiores, da face, da cabeça e do pescoço                                202608
+0304Tratamento em oncologia                                                                             202608
+0804Telessaúde                                                                                          202608
+0904Atenção em Otorrinolaringologia                                                                     202608
+0204Diagnóstico por radiologia                                                                          202608
+0604Componente especializado da assistência farmacêutica                                                202608
+0504Processamento de tecidos para transplante                                                           202608
+0605Assistência Farmacêutica em Oncologia                                                               202608
+0505Transplante de orgãos, tecidos e células                                                            202608
+0205Diagnóstico por ultrasonografia                                                                     202608
+0305Tratamento em nefrologia                                                                            202608
+0405Cirurgia do aparelho da visão                                                                       202608
+0905Atenção em Oftalmologia                                                                             202608
+0406Cirurgia do aparelho circulatório                                                                   202608
+0906Atenção em Saúde Mulher                                                                             202608
+0306Hemoterapia                                                                                         202608
+0206Diagnóstico por tomografia                                                                          202608
+0506Acompanhamento e intercorrências no pré e pós-transplante                                           202608
+0307Tratamentos odontológicos                                                                           202608
+0407Cirurgia do aparelho digestivo, orgãos anexos e parede abdominal                                    202608
+0207Diagnóstico por ressonância magnética                                                               202608
+0907Atenção à Saúde Bucal                                                                               202608
+0208Diagnóstico por medicina nuclear in vivo                                                            202608
+0308Tratamento de lesões, envenenamentos e outros, decorrentes de causas externas                       202608
+0408Cirurgia do sistema osteomuscular                                                                   202608
+0908Atenção em Infectologia                                                                             202608
+0209Diagnóstico por endoscopia                                                                          202608
+0409Cirurgia do aparelho geniturinário                                                                  202608
+0309Terapias especializadas                                                                             202608
+0210Diagnóstico por radiologia intervencionista                                                         202608
+0410Cirurgia de mama                                                                                    202608
+0310Parto e nascimento                                                                                  202608
+0211Métodos diagnósticos em especialidades                                                              202608
+0411Cirurgia obstétrica                                                                                 202608
+0311Cuidados Paliativos                                                                                 202608
+0412Cirurgia torácica                                                                                   202608
+0212Diagnóstico e procedimentos especiais em hemoterapia                                                202608
+0213Diagnóstico em vigilância epidemiológica e ambiental                                                202608
+0413Cirurgia reparadora                                                                                 202608
+0414Bucomaxilofacial                                                                                    202608
+0214Diagnóstico por teste rápido                                                                        202608
+0415Outras cirurgias                                                                                    202608
+0416Cirurgia em oncologia                                                                               202608
+0417Anestesiologia                                                                                      202608
+0418Cirurgia em nefrologia                                                                              202608

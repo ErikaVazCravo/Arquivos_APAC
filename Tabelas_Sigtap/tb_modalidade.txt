@@ -1,0 +1,4 @@
+01Ambulatorial                                                                                        202608
+02Hospitalar                                                                                          202608
+03Hospital Dia                                                                                        202608
+06Atenção Domiciliar                                                                                  202608

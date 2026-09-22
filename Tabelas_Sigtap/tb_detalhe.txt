@@ -1,0 +1,59 @@
+001Inclui valor da anestesia                                                                           202608
+003Admite longa permanência                                                                            202608
+004Admite permanência à maior                                                                          202608
+005Admite liberação de quantidade na AIH                                                               202608
+006CNRAC                                                                                               202608
+007Permanência por dia                                                                                 202608
+008Não permite mudança de procedimento                                                                 202608
+009Exige CPF/CNS                                                                                       202608
+011Permite alta direta de UTI                                                                          202608
+012Exige idade no BPA (Consolidado)                                                                    202608
+013Verifica habilitação de terceiro                                                                    202608
+014Admite APAC de Continuidade                                                                         202608
+015Admitido apenas em Hosp.Espec/Psiquiatria                                                           202608
+017Exige Informação da OPM                                                                             202608
+020Monitoramento do CEO                                                                                202608
+021Não Exige CBO                                                                                       202608
+022Exige registro na APAC de dados complementares                                                      202608
+023Registro no SISCOLO                                                                                 202608
+024Registro no SISPRENATAL                                                                             202608
+025Registro no SISMAMA                                                                                 202608
+026Registro de Procedimentos Secundário Compativel                                                     202608
+029Admite período maior para a apresentação                                                            202608
+033APAC com validade fixa de 03 competências                                                           202608
+034Não exige CPF/CNS                                                                                   202608
+036Exige Autorização                                                                                   202608
+037Exige CNPJ do Fornecedor                                                                            202608
+038Exige Serviço/Classificação                                                                         202608
+040Registro no SISCAN                                                                                  202608
+041APAC com validade fixa de 12 competências                                                           202608
+042Não Admite Liberação de Crítica de Idade                                                            202608
+043Exige registro de CID de causas associadas (Secundário)                                             202608
+044Cirurgias Eletivas                                                                                  202608
+045Diárias de Leitos Complementares                                                                    202608
+046Tratamento Ambulatorial de Doenças Crônicas                                                         202608
+047Autorização com limite máximo de 6 meses.                                                           202608
+048Exige CID                                                                                           202608
+049Permite Informação de Equipe Cirúrgica                                                              202608
+050Permite o Registro de Informações do CPF/CNS do(s) Recém-Nascido(s)                                 202608
+051Programa Mais Acesso a Especialistas - Componente Cirurgias Hospitalares                            202608
+052Programa Mais Acesso a Especialistas - Componente Cirurgias Ambulatoriais.                          202608
+053Programa Mais Acesso a Especialistas (PMAE)                                                         202608
+054APAC com validade fixa de 2 competências.                                                           202608
+055Exige data do resultado diagnóstico de Neoplasia                                                    202608
+056Exige procedimento de tomografia computadorizada                                                    202608
+057Exige procedimento de ressonância magnética                                                         202608
+058Obrigatório CPF                                                                                     202608
+059Componente Complementar - Modalidade 2                                                              202608
+060Componente Complementar - Modalidade 3                                                              202608
+061Exige procedimento de Mamografia ou Ultrassonografia Mamária Bilateral                              202608
+062Exige procedimento de Colposcopia ou de Biópsia com o Anatomopatológico                             202608
+063Exige procedimento de diagnóstico em oftalmologia                                                   202608
+064Exige procedimento diagnóstico e procedimento clínico-restaurador.                                  202608
+065Apoio Diagnóstico e Terapêutico por Imagem em Compensação Financeira                                202608
+066APAC Onco Exclusiva com Autorização Prévia                                                          202608
+067Exige Procedimento de Punção Lombar e/ou Tomografia                                                 202608
+068Exige procedimentos dos subgrupos 02.03 e/ou 02.02                                                  202608
+069Exige Procedimentos dos Subgrupos 02.06 e/ou 02.09                                                  202608
+070Exige procedimento de tomografia e/ou biópsia                                                       202608
+071Exige procedimento reabilitador                                                                     202608

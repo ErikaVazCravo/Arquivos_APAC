@@ -1,0 +1,75 @@
+100Serviço de Atenção a Saúde no Sistema Penitenciário                                                                     202608
+101Estratégia de Saúde da Família                                                                                          202608
+102Estratégias de Agentes Comunitário de Saúde                                                                             202608
+103Serviço de Atendimento Móvel de Urgências                                                                               202608
+104Regulação Assistêncial dos Serviços de Saúde                                                                            202608
+105Serviço de Atenção em Neurologia/ Neurocirurgia                                                                         202608
+106Serviço de Atenção a DST/HIV/AIDS                                                                                       202608
+107Atenção à Saúde Auditiva                                                                                                202608
+108Atenção a Saúde do Trabalhador                                                                                          202608
+109Serviço de Atenção a Saúde dos Adolecentes em Conflito com a Lei, em Regime de Internação e Internação Provisória       202608
+110Serviço de Atenção a Saúde Reprodutiva                                                                                  202608
+111Serviço de Atenção ao Paciente com Tuberculose                                                                          202608
+112Serviço de Atenção ao Pré-Natal e Nascimento                                                                            202608
+113Serviço de Atenção Domiciliar                                                                                           202608
+114Serviço de Atenção em Saúde Bucal                                                                                       202608
+115Serviço de Atenção Psicossocial                                                                                         202608
+116Serviço de Atenção Cardiovascular/Cardiologia                                                                           202608
+117Serviço de Cirurgia Reparadora                                                                                          202608
+118Serviço de Cirurgia Torácica                                                                                            202608
+119Serviço de Controle de Tabagismo                                                                                        202608
+120Serviço de Diagnóstico por Anatomia Patológica e/ou Citopatologia                                                       202608
+121Diagnóstico por Imagem                                                                                                  202608
+122Serviço de Diagnóstico por Métodos Gráficos/Dinâmicos                                                                   202608
+123Serviço de Dispensação de Órteses, Próteses e Materiais Especiais                                                       202608
+124Serviço de Endocrinologia                                                                                               202608
+125Serviço de Farmácia                                                                                                     202608
+126Serviço de Fisioterapia                                                                                                 202608
+127Serviço de Atenção à Obesidade                                                                                          202608
+128Serviço de Hemoterapia                                                                                                  202608
+129Servico de Laboratório de Histocompatibilidade                                                                          202608
+130Atenção à Doença Renal Crônica                                                                                          202608
+131Serviço de Oftalmologia                                                                                                 202608
+132Serviço de Oncologia                                                                                                    202608
+133Serviço de Pneumologia                                                                                                  202608
+134Serviço de Práticas Integrativas e Complementares                                                                       202608
+135Serviço de Reabilitação                                                                                                 202608
+136Serviço de Suporte Nutricional                                                                                          202608
+137Serviço de Telemedicina                                                                                                 202608
+138Serviço de Traumato-Ortopedia                                                                                           202608
+139Serviço de Triagem Neonatal                                                                                             202608
+140Serviço de Urgência e Emergência                                                                                        202608
+141Serviço de Vigilância em Saúde                                                                                          202608
+142Serviço de Endoscopia                                                                                                   202608
+143Serviço Móvel de Urgência (exceto SAMU)                                                                                 202608
+144Serviço Posto de Coleta de Materiais Biológicos                                                                         202608
+145Serviço de Diagnóstico por Laboratório Clínico                                                                          202608
+146Serviço de Videolaparoscopia                                                                                            202608
+147Serviço de Apoio a Saúde da Família                                                                                     202608
+148Hospital-Dia                                                                                                            202608
+149Transplante                                                                                                             202608
+150Cirurgia Vascular                                                                                                       202608
+151Medicina Nuclear                                                                                                        202608
+152Atenção à Saúde da População Indígena                                                                                   202608
+153Atenção Especializada no Processo Transexualizador                                                                      202608
+154Serviço de Banco de Tecidos                                                                                             202608
+155Serviço de Traumatologia  Ortopedia                                                                                     202608
+157Serviço de Laboratorio de Protese Dentaria                                                                              202608
+158Serviço de Atenção Integral em Hanseniase                                                                               202608
+159Atenção Primária                                                                                                        202608
+160Teleconsultoria                                                                                                         202608
+161Consultório na Rua                                                                                                      202608
+162Serviço de Terapia Intensiva                                                                                            202608
+163Serviço de Cuidados Intermediários                                                                                      202608
+164Serviço de Órteses,Próteses e Materiais Especiais em Reabilitação                                                       202608
+165Atenção às Pessoas em Situação de Violência Sexual                                                                      202608
+166Serviço de  Análise Laboratorial  de Produtos Sujeitos á  Vigilância Sanitária                                          202608
+167Atendimento Itinerante de Asistência e Ensino em Saúde                                                                  202608
+168Atenção Às Pessoas com Doenças Raras                                                                                    202608
+169Serviço de Atenção em Urologia                                                                                          202608
+170Comissões e Comitês                                                                                                     202608
+171Cuidados Paliativos                                                                                                     202608
+172Atenção ao Luto Materno e Parental                                                                                      202608
+173Logística de Imunobiológicos                                                                                            202608
+174Imunização                                                                                                              202608
+175Cirúrgia Robótica                                                                                                       202608
