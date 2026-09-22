@@ -90,7 +90,7 @@ def export_value(field, value):
         raise ValueError(f"{field['label']}: informe uma data válida no formato DD/MM/AAAA.") from exc
 
 
-def render_record(record, title=None):
+def render_readonly_record(record, title=None):
     if title:
         st.markdown(f"### {title}")
     fields = record["fields"]
@@ -98,21 +98,34 @@ def render_record(record, title=None):
         row = fields[start:start + 3]
         columns = st.columns([field_width(field) for field in row])
         for column, field in zip(columns, row):
-            key = f"field_{record['index']}_{field['key']}"
+            with column:
+                st.markdown(f"**{field['label']}**  \n{display_value(field) or '-'}")
+
+
+def render_editable_record(record, title=None):
+    if title:
+        st.markdown(f"### {title}")
+    fields = record["fields"]
+    for start in range(0, len(fields), 3):
+        row = fields[start:start + 3]
+        columns = st.columns([field_width(field) for field in row])
+        for column, field in zip(columns, row):
             with column:
                 st.text_input(
                     field["label"],
                     value=display_value(field),
-                    max_chars=field["size"],
+                    max_chars=10 if is_date_field(field) else field["size"],
                     disabled=field["read_only"],
                     help=field["desc"] or f"Tamanho: {field['size']}",
-                    key=key,
+                    key=f"field_{record['index']}_{field['key']}",
                 )
 
 
 def collect_changes(detail):
     changes = {}
     for record in detail["records"]:
+        if record["type"] != "13":
+            continue
         for field in record["fields"]:
             key = f"field_{record['index']}_{field['key']}"
             shown = display_value(field)
@@ -151,6 +164,8 @@ current = st.session_state.get("selected_index", filtered[0]["index"])
 if current not in labels:
     current = filtered[0]["index"]
 selected = st.sidebar.radio("Registros", [row["index"] for row in filtered], index=[row["index"] for row in filtered].index(current), format_func=labels.get)
+if selected != st.session_state.get("selected_index"):
+    st.session_state.editing_procedures = False
 st.session_state.selected_index = selected
 
 detail = editor.detail(selected)
@@ -177,31 +192,39 @@ variable_records = [record for record in detail["records"] if record["type"] not
 procedure_records = [record for record in detail["records"] if record["type"] == "13"]
 
 with st.container(border=True):
-    st.markdown("### Dados da APAC")
+    st.markdown("### Visualização da APAC")
     for record in body_records:
-        render_record(record)
+        render_readonly_record(record, "Dados da APAC")
 
 with st.container(border=True):
     st.markdown("### Dados complementares")
     if variable_records:
         for record in variable_records:
-            render_record(record, record["title"])
+            render_readonly_record(record, record["title"])
     else:
         st.caption("Esta APAC nao possui dados complementares.")
 
 with st.container(border=True):
     st.markdown(f"### Procedimentos ({len(procedure_records)})")
+    editing = st.session_state.get("editing_procedures", False)
+    if st.button("Fechar edição" if editing else "Editar APAC", use_container_width=False):
+        st.session_state.editing_procedures = not editing
+        st.rerun()
     if procedure_records:
         for number, record in enumerate(procedure_records, 1):
-            st.markdown(f"**Procedimento {number}**  {record['description'] or 'Descricao nao encontrada'}")
-            render_record(record)
+            title = f"Procedimento {number}: {record['description'] or 'Descricao nao encontrada'}"
+            if editing:
+                render_editable_record(record, title)
+            else:
+                render_readonly_record(record, title)
     else:
         st.caption("Esta APAC nao possui procedimentos.")
 
 with save:
-    if st.button("Salvar alteracoes", type="primary", use_container_width=True):
+    if st.session_state.get("editing_procedures", False) and st.button("Salvar alteracoes", type="primary", use_container_width=True):
         try:
             editor.save({"version": state["version"], "body_index": selected, "changes": collect_changes(detail)})
+            st.session_state.editing_procedures = False
             st.success("Arquivo salvo com sucesso.")
             st.rerun()
         except (OSError, ValueError) as exc:
