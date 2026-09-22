@@ -131,7 +131,7 @@ def render_editable_record(record, title=None):
 def collect_changes(detail):
     changes = {}
     for record in detail["records"]:
-        if record["type"] != "13":
+        if record["type"] == "01":
             continue
         for field in record["fields"]:
             key = f"field_{record['index']}_{field['key']}"
@@ -207,19 +207,25 @@ procedure_records = [record for record in detail["records"] if record["type"] ==
 with st.container(border=True):
     st.markdown("### Visualização da APAC")
     for record in body_records:
-        render_readonly_record(record, "Dados da APAC")
+        if editing:
+            render_editable_record(record, "Dados da APAC")
+        else:
+            render_readonly_record(record, "Dados da APAC")
 
 with st.container(border=True):
     st.markdown("### Dados complementares")
     if variable_records:
         for record in variable_records:
-            render_readonly_record(record, record["title"])
+            if editing:
+                render_editable_record(record, record["title"])
+            else:
+                render_readonly_record(record, record["title"])
     else:
         st.caption("Esta APAC nao possui dados complementares.")
 
 with st.container(border=True):
     st.markdown(f"### Procedimentos ({len(procedure_records)})")
-    st.caption("Modo de edição ativo." if editing else "Somente visualização. Use Editar APAC para alterar os procedimentos.")
+    st.caption("Modo de edição ativo." if editing else "Somente visualização. Use Editar APAC para alterar os dados.")
     if procedure_records:
         for number, record in enumerate(procedure_records, 1):
             title = f"Procedimento {number}: {record['description'] or 'Descricao nao encontrada'}"
