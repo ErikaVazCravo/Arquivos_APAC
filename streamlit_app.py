@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+from datetime import datetime
 from pathlib import Path
 import tempfile
 
@@ -62,6 +63,33 @@ def field_width(field):
     return min(12, max(3, (field["size"] + 7) // 8 + 2))
 
 
+def is_date_field(field):
+    description = field.get("desc", "").upper()
+    label = field.get("label", "").upper()
+    return "AAAAMMDD" in description or "YYYYMMDD" in description or label.startswith("DATA ")
+
+
+def display_value(field):
+    value = field["value"]
+    if not is_date_field(field) or not value:
+        return value
+    if len(value) == 8 and value.isdigit():
+        try:
+            return datetime.strptime(value, "%Y%m%d").strftime("%d/%m/%Y")
+        except ValueError:
+            pass
+    return value
+
+
+def export_value(field, value):
+    if not is_date_field(field) or not value.strip():
+        return value
+    try:
+        return datetime.strptime(value.strip(), "%d/%m/%Y").strftime("%Y%m%d")
+    except ValueError as exc:
+        raise ValueError(f"{field['label']}: informe uma data válida no formato DD/MM/AAAA.") from exc
+
+
 def render_record(record, title=None):
     if title:
         st.markdown(f"### {title}")
@@ -74,7 +102,7 @@ def render_record(record, title=None):
             with column:
                 st.text_input(
                     field["label"],
-                    value=field["value"],
+                    value=display_value(field),
                     max_chars=field["size"],
                     disabled=field["read_only"],
                     help=field["desc"] or f"Tamanho: {field['size']}",
@@ -87,9 +115,11 @@ def collect_changes(detail):
     for record in detail["records"]:
         for field in record["fields"]:
             key = f"field_{record['index']}_{field['key']}"
-            value = st.session_state.get(key, field["value"])
-            if value != field["value"]:
-                changes.setdefault(str(record["index"]), {})[field["key"]] = value
+            shown = display_value(field)
+            value = st.session_state.get(key, shown)
+            exported = field["value"] if value == shown else export_value(field, value)
+            if exported != field["value"]:
+                changes.setdefault(str(record["index"]), {})[field["key"]] = exported
     return changes
 
 
