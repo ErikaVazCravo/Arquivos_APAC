@@ -29,8 +29,27 @@ import webbrowser
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-import tkinter as tk
-from tkinter import filedialog, messagebox, simpledialog, ttk
+
+try:
+    import tkinter as tk
+    from tkinter import filedialog, messagebox, simpledialog, ttk
+except ModuleNotFoundError:
+    class _TkUnavailable:
+        class Frame:
+            pass
+
+        class Toplevel:
+            pass
+
+        class Tk:
+            pass
+
+        def __getattr__(self, _name):
+            return 0
+
+    tk = _TkUnavailable()
+    ttk = _TkUnavailable()
+    filedialog = messagebox = simpledialog = _TkUnavailable()
 
 from apac_report import generate_report, load_descriptions
 from sigtap_tables import load_sigtap_folder
