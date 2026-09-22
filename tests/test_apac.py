@@ -58,6 +58,13 @@ class ReportTests(unittest.TestCase):
                       "001", "002", "2082527", "N63", "Z00", "25/06/2026", "19/12/2005", "01234567890"]:
             self.assertIn(value, html)
         self.assertIn("&lt;script&gt; &amp;", html)
+        titles = [
+            "Identificação do usuário", "Endereço e contato", "Procedimentos",
+            "Dados complementares", "Laudo Geral", "Identificação da APAC",
+            "Solicitação e autorização", "Outras informações",
+        ]
+        positions = [html.index(f">{title}</h2>") for title in titles]
+        self.assertEqual(positions, sorted(positions))
         self.assertNotIn("<input", html)
         self.assertNotIn("<form", html)
         self.assertNotIn("contenteditable", html)

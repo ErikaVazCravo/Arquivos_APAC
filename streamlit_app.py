@@ -15,22 +15,25 @@ st.set_page_config(page_title="Editor APAC", page_icon="A", layout="wide")
 st.markdown(
     """
     <style>
-    :root { --apac-blue: #164887; --apac-line: #d9e2ee; --apac-muted: #61748c; }
-    .block-container { padding: 1.25rem 2rem 3rem; max-width: 1500px; }
-    .apac-header { background: #113e7a; color: white; padding: 1.25rem 1.6rem; margin: 0 -2rem 1.25rem; border-bottom: 4px solid #eead3d; }
-    .apac-header h1 { margin: 0; font-size: 1.55rem; }
-    .apac-header p { margin: .25rem 0 0; color: #c5d7ed; font-size: .8rem; }
-    .record-title { border-bottom: 1px solid var(--apac-line); padding: .5rem 0 .9rem; margin-bottom: 1rem; }
-    .record-title h2 { margin: .2rem 0; color: #1c304b; }
+    :root { --apac-ink: #26364d; --apac-navy: #193b63; --apac-blue: #2e628f; --apac-line: #dce4ed; --apac-muted: #708096; }
+    .block-container { padding: 1.5rem 2rem 3rem; max-width: 1500px; }
+    .apac-header { background: linear-gradient(135deg, #183b63, #285b82); color: white; padding: 1.5rem 1.75rem; margin: 0 -2rem 1.5rem; box-shadow: 0 2px 12px #183b6326; }
+    .apac-header h1 { margin: 0; font-size: 1.65rem; letter-spacing: -.02em; }
+    .apac-header p { margin: .35rem 0 0; color: #dbe9f5; font-size: .82rem; }
+    .record-title { border-bottom: 1px solid var(--apac-line); padding: .5rem 0 1rem; margin-bottom: 1.25rem; }
+    .record-title h2 { margin: .25rem 0; color: var(--apac-ink); letter-spacing: -.02em; }
     .record-title p { margin: 0; color: var(--apac-muted); }
-    div[data-testid="stSidebar"] { background: #f8fafd; border-right: 1px solid var(--apac-line); }
-    div[data-testid="stForm"] { border: 1px solid var(--apac-line); border-radius: 8px; padding: 1rem; }
-    div[data-testid="stSidebar"] h2 { color: var(--apac-blue); }
-    div[data-testid="stVerticalBlockBorderWrapper"] { border-color: var(--apac-line); background: white; }
-    div[data-testid="stVerticalBlockBorderWrapper"] h3 { color: var(--apac-blue); margin-top: 0; }
-    .readonly-value { min-height: 2.8rem; padding: .35rem .55rem; border-bottom: 1px solid #e4eaf2; }
-    .readonly-label { color: #61748c; font-size: .78rem; }
-    .readonly-text { color: #1c304b; overflow-wrap: anywhere; }
+    div[data-testid="stSidebar"] { background: #f7f9fc; border-right: 1px solid var(--apac-line); }
+    div[data-testid="stForm"] { border: 1px solid var(--apac-line); border-radius: 9px; padding: 1rem; }
+    div[data-testid="stSidebar"] h2 { color: var(--apac-navy); }
+    div[data-testid="stVerticalBlockBorderWrapper"] { border-color: var(--apac-line); background: white; border-radius: 10px; box-shadow: 0 2px 8px #193b6308; }
+    div[data-testid="stVerticalBlockBorderWrapper"] h3 { color: var(--apac-navy); margin-top: 0; letter-spacing: -.01em; }
+    .readonly-value { min-height: 2.8rem; padding: .45rem .6rem .7rem; border-bottom: 1px solid #edf1f5; }
+    .readonly-label { color: var(--apac-muted); font-size: .72rem; }
+    .readonly-text { color: var(--apac-ink); font-weight: 600; overflow-wrap: anywhere; }
+    div[data-testid="stDataFrame"] { border: 1px solid var(--apac-line); border-radius: 8px; overflow: hidden; }
+    button[kind="primary"] { background: var(--apac-navy); border-color: var(--apac-navy); }
+    @media (max-width: 700px) { .block-container { padding: 1rem .75rem 2rem; } .apac-header { margin: 0 -.75rem 1rem; padding: 1.25rem; } }
     </style>
     <div class="apac-header"><h1>Editor APAC</h1><p>Edicao e consulta de arquivos APAC</p></div>
     """,
@@ -234,34 +237,34 @@ body_records = [record for record in detail["records"] if record["type"] == "14"
 variable_records = [record for record in detail["records"] if record["type"] not in {"01", "13", "14"}]
 procedure_records = [record for record in detail["records"] if record["type"] == "13"]
 
+body = body_records[0] if body_records else None
+used = set()
+
 with st.container(border=True):
-    st.markdown("### Dados da APAC")
-    if body_records:
-        body = body_records[0]
-        used = set()
-        used |= render_field_group(body, "Identificação da APAC", {
-            "apa_apacant", "apa_num", "apa_codsol", "apa_codcnes", "apa_dtiinval",
-            "apa_dtfimval", "apa_tipapac", "apa_motsaida", "apa_dtobitoalta",
-        }, editing)
+    if body:
         used |= render_field_group(body, "Identificação do usuário", {
             "apa_nascpcnte", "apa_cpfpcnte", "apa_cnspct", "apa_semcpf", "apa_strua",
             "apa_nomepcnte", "apa_nomemae", "apa_nomeresp_pac", "apa_raca", "apa_etnia",
             "apa_datanascim",
         }, editing)
+
+with st.container(border=True):
+    if body:
         used |= render_field_group(body, "Endereço e contato", {
             "apa_ceppcnte", "apa_logpcnte", "apa_numpcnte", "apa_cplpcnte", "apa_bairro",
-            "apa_munpcnte", "apa_telcontato", "apa_email",
+            "apa_munpcnte", "apa_telcontato", "apa_email", "apa_dddtelcontato",
         }, editing)
-        used |= render_field_group(body, "Solicitação e autorização", {
-            "apa_carate", "apa_nomeresp_med", "apa_cnsres", "apa_datsol", "apa_nomediretor",
-            "apa_cnsdir", "apa_dataut", "apa_codemis",
-        }, editing)
-        remaining = [field for field in body["fields"] if field["key"] not in used and field["key"] not in {"apa_corpo", "apa_cmp"}]
-        if remaining:
-            if editing:
-                render_editable_record(body, "Outras informações", remaining)
-            else:
-                render_readonly_record(body, "Outras informações", remaining)
+
+with st.container(border=True):
+    st.markdown(f"### Procedimentos ({len(procedure_records)})")
+    st.caption("Modo de edição ativo." if editing else "Somente visualização. Use Editar APAC para alterar os dados.")
+    if procedure_records:
+        render_procedure_table(procedure_records)
+        if editing:
+            for number, record in enumerate(procedure_records, 1):
+                render_editable_record(record, f"Editar procedimento {number}")
+    else:
+        st.caption("Esta APAC nao possui procedimentos.")
 
 with st.container(border=True):
     st.markdown("### Dados complementares")
@@ -275,15 +278,27 @@ with st.container(border=True):
         st.caption("Esta APAC nao possui dados complementares.")
 
 with st.container(border=True):
-    st.markdown(f"### Procedimentos ({len(procedure_records)})")
-    st.caption("Modo de edição ativo." if editing else "Somente visualização. Use Editar APAC para alterar os dados.")
-    if procedure_records:
-        render_procedure_table(procedure_records)
-        if editing:
-            for number, record in enumerate(procedure_records, 1):
-                render_editable_record(record, f"Editar procedimento {number}")
-    else:
-        st.caption("Esta APAC nao possui procedimentos.")
+    if body:
+        used |= render_field_group(body, "Identificação da APAC", {
+            "apa_apacant", "apa_num", "apa_codsol", "apa_codcnes", "apa_dtiinval",
+            "apa_dtfimval", "apa_tipapac", "apa_motsaida", "apa_dtobitoalta",
+        }, editing)
+
+with st.container(border=True):
+    if body:
+        used |= render_field_group(body, "Solicitação e autorização", {
+            "apa_carate", "apa_nomeresp_med", "apa_cnsres", "apa_datsol", "apa_nomediretor",
+            "apa_cnsdir", "apa_dataut", "apa_codemis",
+        }, editing)
+
+with st.container(border=True):
+    if body:
+        remaining = [field for field in body["fields"] if field["key"] not in used and field["key"] not in {"apa_corpo", "apa_cmp"}]
+        if remaining:
+            if editing:
+                render_editable_record(body, "Outras informações", remaining)
+            else:
+                render_readonly_record(body, "Outras informações", remaining)
 
 with save:
     if st.session_state.get("editing_procedures", False) and st.button("Salvar alteracoes", type="primary", use_container_width=True):
