@@ -15,21 +15,18 @@ st.markdown(
     """
     <style>
     :root { --apac-blue: #164887; --apac-line: #d9e2ee; --apac-muted: #61748c; }
-    .block-container { padding-top: 1rem; }
-    .apac-header { background: #113e7a; color: white; padding: 1rem 1.4rem; margin: -1rem -1rem 1rem; }
-        .block-container { padding: 1.25rem 2rem 3rem; max-width: 1500px; }
-        .apac-header { background: #113e7a; color: white; padding: 1.25rem 1.6rem; margin: -1.25rem -2rem 1.25rem; border-bottom: 4px solid #eead3d; }
+    .block-container { padding: 1.25rem 2rem 3rem; max-width: 1500px; }
+    .apac-header { background: #113e7a; color: white; padding: 1.25rem 1.6rem; margin: 0 -2rem 1.25rem; border-bottom: 4px solid #eead3d; }
     .apac-header h1 { margin: 0; font-size: 1.55rem; }
     .apac-header p { margin: .25rem 0 0; color: #c5d7ed; font-size: .8rem; }
-    .record-title { border-bottom: 1px solid var(--apac-line); padding-bottom: .65rem; margin-bottom: .75rem; }
-        .record-title { border-bottom: 1px solid var(--apac-line); padding: .5rem 0 .9rem; margin-bottom: 1rem; }
+    .record-title { border-bottom: 1px solid var(--apac-line); padding: .5rem 0 .9rem; margin-bottom: 1rem; }
     .record-title h2 { margin: .2rem 0; color: #1c304b; }
     .record-title p { margin: 0; color: var(--apac-muted); }
     div[data-testid="stSidebar"] { background: #f8fafd; border-right: 1px solid var(--apac-line); }
     div[data-testid="stForm"] { border: 1px solid var(--apac-line); border-radius: 8px; padding: 1rem; }
-        div[data-testid="stSidebar"] h2 { color: var(--apac-blue); }
-        div[data-testid="stVerticalBlockBorderWrapper"] { border-color: var(--apac-line); background: white; }
-        div[data-testid="stVerticalBlockBorderWrapper"] h3 { color: var(--apac-blue); margin-top: 0; }
+    div[data-testid="stSidebar"] h2 { color: var(--apac-blue); }
+    div[data-testid="stVerticalBlockBorderWrapper"] { border-color: var(--apac-line); background: white; }
+    div[data-testid="stVerticalBlockBorderWrapper"] h3 { color: var(--apac-blue); margin-top: 0; }
     </style>
     <div class="apac-header"><h1>Editor APAC</h1><p>Edicao e consulta de arquivos APAC</p></div>
     """,
@@ -60,20 +57,29 @@ def load_file(uploaded_file):
     return editor
 
 
-def render_record(record):
-    st.markdown(f"### {record['title']}")
-    columns = st.columns(3)
-    for position, field in enumerate(record["fields"]):
-        key = f"field_{record['index']}_{field['key']}"
-        with columns[position % 3]:
-            st.text_input(
-                field["label"],
-                value=field["value"],
-                max_chars=field["size"],
-                disabled=field["read_only"],
-                help=field["desc"] or f"Tamanho: {field['size']}",
-                key=key,
-            )
+def field_width(field):
+    """Dá mais espaço aos campos longos sem deixar os curtos ocuparem a linha toda."""
+    return min(12, max(3, (field["size"] + 7) // 8 + 2))
+
+
+def render_record(record, title=None):
+    if title:
+        st.markdown(f"### {title}")
+    fields = record["fields"]
+    for start in range(0, len(fields), 3):
+        row = fields[start:start + 3]
+        columns = st.columns([field_width(field) for field in row])
+        for column, field in zip(columns, row):
+            key = f"field_{record['index']}_{field['key']}"
+            with column:
+                st.text_input(
+                    field["label"],
+                    value=field["value"],
+                    max_chars=field["size"],
+                    disabled=field["read_only"],
+                    help=field["desc"] or f"Tamanho: {field['size']}",
+                    key=key,
+                )
 
 
 def collect_changes(detail):
@@ -139,7 +145,6 @@ with next_record:
 body_records = [record for record in detail["records"] if record["type"] == "14"]
 variable_records = [record for record in detail["records"] if record["type"] not in {"01", "13", "14"}]
 procedure_records = [record for record in detail["records"] if record["type"] == "13"]
-header_records = [record for record in detail["records"] if record["type"] == "01"]
 
 with st.container(border=True):
     st.markdown("### Dados da APAC")
@@ -150,7 +155,7 @@ with st.container(border=True):
     st.markdown("### Dados complementares")
     if variable_records:
         for record in variable_records:
-            render_record(record)
+            render_record(record, record["title"])
     else:
         st.caption("Esta APAC nao possui dados complementares.")
 
@@ -162,14 +167,6 @@ with st.container(border=True):
             render_record(record)
     else:
         st.caption("Esta APAC nao possui procedimentos.")
-
-with st.container(border=True):
-    st.markdown("### Cabecalho do arquivo")
-    if header_records:
-        for record in header_records:
-            render_record(record)
-    else:
-        st.caption("Cabecalho nao encontrado.")
 
 with save:
     if st.button("Salvar alteracoes", type="primary", use_container_width=True):
