@@ -33,7 +33,7 @@ from pathlib import Path
 try:
     import tkinter as tk
     from tkinter import filedialog, messagebox, simpledialog, ttk
-except ModuleNotFoundError:
+except ImportError:
     class _TkUnavailable:
         class Frame:
             pass
