@@ -28,6 +28,9 @@ st.markdown(
     div[data-testid="stSidebar"] h2 { color: var(--apac-blue); }
     div[data-testid="stVerticalBlockBorderWrapper"] { border-color: var(--apac-line); background: white; }
     div[data-testid="stVerticalBlockBorderWrapper"] h3 { color: var(--apac-blue); margin-top: 0; }
+    .readonly-value { min-height: 2.8rem; padding: .35rem .55rem; border-bottom: 1px solid #e4eaf2; }
+    .readonly-label { color: #61748c; font-size: .78rem; }
+    .readonly-text { color: #1c304b; overflow-wrap: anywhere; }
     </style>
     <div class="apac-header"><h1>Editor APAC</h1><p>Edicao e consulta de arquivos APAC</p></div>
     """,
@@ -96,10 +99,14 @@ def render_readonly_record(record, title=None):
     fields = record["fields"]
     for start in range(0, len(fields), 3):
         row = fields[start:start + 3]
-        columns = st.columns([field_width(field) for field in row])
+        columns = st.columns(3)
         for column, field in zip(columns, row):
             with column:
-                st.markdown(f"**{field['label']}**  \n{display_value(field) or '-'}")
+                st.markdown(
+                    f"<div class='readonly-value'><div class='readonly-label'>{field['label']}</div>"
+                    f"<div class='readonly-text'>{display_value(field) or '-'}</div></div>",
+                    unsafe_allow_html=True,
+                )
 
 
 def render_editable_record(record, title=None):
@@ -177,7 +184,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-previous, next_record, save, download = st.columns([1, 1, 2, 2])
+previous, next_record, edit, save, download = st.columns([1, 1, 1.5, 2, 2])
 with previous:
     if st.button("Anterior", disabled=position == 0, use_container_width=True):
         st.session_state.selected_index = rows[position - 1]["index"]
@@ -185,6 +192,12 @@ with previous:
 with next_record:
     if st.button("Proxima", disabled=position == len(rows) - 1, use_container_width=True):
         st.session_state.selected_index = rows[position + 1]["index"]
+        st.rerun()
+
+editing = st.session_state.get("editing_procedures", False)
+with edit:
+    if st.button("Fechar edição" if editing else "Editar APAC", type="primary", use_container_width=True):
+        st.session_state.editing_procedures = not editing
         st.rerun()
 
 body_records = [record for record in detail["records"] if record["type"] == "14"]
@@ -206,10 +219,7 @@ with st.container(border=True):
 
 with st.container(border=True):
     st.markdown(f"### Procedimentos ({len(procedure_records)})")
-    editing = st.session_state.get("editing_procedures", False)
-    if st.button("Fechar edição" if editing else "Editar APAC", use_container_width=False):
-        st.session_state.editing_procedures = not editing
-        st.rerun()
+    st.caption("Modo de edição ativo." if editing else "Somente visualização. Use Editar APAC para alterar os procedimentos.")
     if procedure_records:
         for number, record in enumerate(procedure_records, 1):
             title = f"Procedimento {number}: {record['description'] or 'Descricao nao encontrada'}"
