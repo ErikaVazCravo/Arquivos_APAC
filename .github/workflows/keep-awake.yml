@@ -1,6 +1,11 @@
 name: Manter Editor APAC ativo
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/keep-awake.yml'
+      - 'scripts/keep_awake.py'
   schedule:
     - cron: '17 */6 * * *'
   workflow_dispatch:
@@ -22,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
-      STREAMLIT_APP_URL: ${{ inputs.app_url || vars.STREAMLIT_APP_URL }}
+      STREAMLIT_APP_URL: ${{ inputs.app_url || vars.STREAMLIT_APP_URL || 'https://arquivosapac.streamlit.app/' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
