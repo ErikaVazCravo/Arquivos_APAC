@@ -1,5 +1,16 @@
 # Editor APAC
 
+## Usar a versão Streamlit
+
+```powershell
+python -m pip install -r requirements.txt
+python -m streamlit run streamlit_app.py
+```
+
+Abra o arquivo na barra lateral e selecione um paciente. A tela apresenta os dados em blocos, com três colunas de campos. Use **Editar APAC**, **Salvar alterações** e **Baixar arquivo atualizado** para guardar o resultado no computador. **Cancelar edição** descarta o que ainda não foi salvo. O cabeçalho é exibido somente para consulta; quantidade e controle são recalculados ao salvar.
+
+Esta versão usa `Editor_APAC.py`, `apac_web.py`, `apac_report.py` e `sigtap_tables.py`. Mantenha esses módulos e a pasta `Tabelas_Sigtap`. O executável e `web_ui` pertencem à versão local descrita abaixo; alterar o Streamlit não atualiza o executável.
+
 Abra **Editor_APAC.exe** com dois cliques. O aplicativo abre diretamente no navegador, na aba **Editor APAC**, sem janela de terminal ou tela inicial de desktop. Não é necessário instalar Python no computador de uso.
 
 O editor funciona localmente, no próprio computador, sem publicar os arquivos na internet. Use **Encerrar**, no canto superior direito, para finalizar o aplicativo. Fechar apenas a aba do navegador não encerra o processo local.
