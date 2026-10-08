@@ -18,9 +18,10 @@ st.markdown(
     <style>
     :root { --apac-ink: #203d32; --apac-green: #216347; --apac-line: #d8e7de; --apac-muted: #506d5e; }
     [data-testid="stAppViewContainer"] { background: #f2f7f3; color: var(--apac-ink); }
-    .block-container { padding: 2rem 2rem 3rem; max-width: 1380px; }
-    .apac-header { background: #216347; color: white; padding: 1.2rem 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; }
-    .apac-header h1 { color: white; margin: 0; padding: 0; font-size: 1.65rem; }
+    .block-container { padding: 5.5rem 2rem 3rem; max-width: 1380px; }
+    .apac-header { background: linear-gradient(120deg, #174b38, #287657); color: white; padding: 1.8rem 2rem; border: 1px solid #ffffff20; border-radius: 20px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px #174b3814; }
+    .apac-header h1 { color: white; margin: .5rem 0 0; padding: 0; font-size: 1.9rem; font-weight: 700; letter-spacing: -.04em; line-height: 1.3; }
+    .apac-eyebrow { display: inline-block; border: 1px solid #ffffff40; background: #ffffff12; padding: .25rem .65rem; border-radius: 20px; color: #e0f1e6; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; }
     .apac-header p { margin: .4rem 0 0; color: #e0f1e6; font-size: .9rem; }
     .record-title { padding: .5rem 0 1rem; margin-bottom: .5rem; }
     .record-title h2 { color: var(--apac-ink); margin: .25rem 0; padding: 0; font-size: 1.6rem; }
@@ -28,7 +29,7 @@ st.markdown(
     [data-testid="stSidebar"] { background: #e8f2eb; border-right: 1px solid var(--apac-line); }
     [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 { color: var(--apac-green); }
     [data-testid="stVerticalBlockBorderWrapper"] > div { border-color: var(--apac-line) !important; border-radius: 12px; }
-    [data-testid="stVerticalBlockBorderWrapper"] { background: white; border-radius: 12px; }
+    [data-testid="stVerticalBlockBorderWrapper"] { background: white; border-radius: 12px; box-shadow: 0 3px 16px #203d3206; }
     h3 { color: var(--apac-green); font-size: 1.1rem !important; }
     .readonly-value { min-height: 4.1rem; padding: .65rem .8rem; background: #f4f8f5; border: 1px solid #dfeae2; border-radius: 7px; margin-bottom: .25rem; }
     .readonly-label { color: var(--apac-muted); font-size: .78rem; margin-bottom: .25rem; }
@@ -38,9 +39,14 @@ st.markdown(
     [data-testid="stDataFrame"] { border: 1px solid var(--apac-line); border-radius: 8px; overflow: hidden; }
     button[kind="primary"] { background-color: #216347; border-color: #216347; color: white; }
     button[kind="primary"]:hover { background-color: #174e37; border-color: #174e37; color: white; }
-    @media (max-width: 700px) { .block-container { padding: 1rem .75rem 2rem; } .apac-header { padding: 1rem; } }
+    .apac-welcome { background: white; border: 1px solid var(--apac-line); border-radius: 18px; padding: 2rem; box-shadow: 0 6px 24px #203d3206; }
+    .apac-welcome-icon { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: #e8f2eb; color: #216347; border-radius: 14px; margin-bottom: 1rem; }
+    .apac-welcome h2 { color: #203d32; font-size: 1.25rem; padding: 0; margin: 0 0 .5rem; }
+    .apac-welcome p { color: #506d5e; margin: 0; line-height: 1.7; }
+    .apac-notice { background: #e8f2eb; border-left: 3px solid #287657; border-radius: 8px; color: #216347; padding: .9rem 1rem; margin-top: 1.5rem; }
+    @media (max-width: 700px) { .block-container { padding: 5rem .75rem 2rem; } .apac-header, .apac-welcome { padding: 1.25rem; } }
     </style>
-    <div class="apac-header"><h1>Editor APAC</h1><p>Edição e consulta de arquivos APAC</p></div>
+    <div class="apac-header"><span class="apac-eyebrow">Gestão de arquivos APAC</span><h1>Editor APAC</h1><p>Consulte, organize e edite os dados em um só lugar.</p></div>
     """,
     unsafe_allow_html=True,
 )
@@ -195,7 +201,23 @@ def collect_changes(detail):
 st.sidebar.title("Pacientes e APACs")
 uploaded_file = st.sidebar.file_uploader("Abrir arquivo APAC", type=None)
 if uploaded_file is None:
-    st.info("Selecione um arquivo APAC para começar.")
+    st.markdown(
+        """
+        <div class="apac-welcome">
+            <div class="apac-welcome-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M8 13h8M8 17h5"/>
+                </svg>
+            </div>
+            <h2>Seu arquivo, pronto para editar</h2>
+            <p>Abra um arquivo na barra lateral para consultar os pacientes,<br>
+            conferir os procedimentos e atualizar os dados da APAC.</p>
+            <div class="apac-notice">Selecione um arquivo APAC para começar.</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
     st.stop()
 
 try:
