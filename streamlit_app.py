@@ -214,6 +214,8 @@ if uploaded_file is None:
             <p>Abra um arquivo na barra lateral para consultar os pacientes,<br>
             conferir os procedimentos e atualizar os dados da APAC.</p>
             <div class="apac-notice">Selecione um arquivo APAC para começar.</div>
+            <p style="margin-top: 1rem; font-size: .9rem;">Essa plataforma não armazena permanentemente os dados das APACs e das alterações.<br>
+            Após baixar o arquivo corrigido, ele precisa ser consistido no APAC Magnético.</p>
         </div>
         """,
         unsafe_allow_html=True,

@@ -2,6 +2,14 @@
 
 ## Usar a versão Streamlit
 
+### Visitas automáticas
+
+O workflow `.github/workflows/keep-awake.yml` abre o app com Chromium e Playwright a cada seis horas, nos servidores do GitHub. Se aparecer o botão de despertar, ele solicita a inicialização e confirma o título **Editor APAC** e o controle **Abrir arquivo APAC**, inclusive dentro de iframe. Não envia arquivos nem dados de pacientes.
+
+No repositório, configure **Settings > Secrets and variables > Actions > Variables > New repository variable**: nome `STREAMLIT_APP_URL`, valor igual ao link HTTPS completo do app. Para testar, abra **Actions > Manter Editor APAC ativo > Run workflow**. Também é possível informar a URL na execução manual, mas o agendamento usa a variável do repositório.
+
+Essa visita periódica ajuda a evitar a hibernação; não desperta instantaneamente a cada acesso nem garante disponibilidade ininterrupta. O GitHub pode atrasar execuções agendadas ou desativá-las por inatividade do repositório. O resultado de cada tentativa fica no histórico de Actions.
+
 ```powershell
 python -m pip install -r requirements.txt
 python -m streamlit run streamlit_app.py

@@ -1,0 +1,42 @@
+name: Manter Editor APAC ativo
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      app_url:
+        description: URL HTTPS do Editor APAC (opcional se a variável já estiver configurada)
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: streamlit-keep-awake
+  cancel-in-progress: false
+
+jobs:
+  visit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      STREAMLIT_APP_URL: ${{ inputs.app_url || vars.STREAMLIT_APP_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Conferir endereço do aplicativo
+        run: |
+          if [ -z "$STREAMLIT_APP_URL" ]; then
+            echo 'Configure a variável STREAMLIT_APP_URL em Settings > Secrets and variables > Actions > Variables.'
+            exit 1
+          fi
+      - name: Instalar Playwright e Chromium
+        run: |
+          python -m pip install playwright==1.58.0
+          python -m playwright install --with-deps chromium
+      - name: Visitar e despertar o aplicativo
+        run: python scripts/keep_awake.py
