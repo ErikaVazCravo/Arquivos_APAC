@@ -84,10 +84,13 @@ def clear_edit_fields():
 
 
 def navigate(index):
+    st.session_state.selected_index = index
+    patient_changed()
+
+
+def patient_changed():
     clear_edit_fields()
     st.session_state.editing_procedures = False
-    st.session_state.selected_index = index
-    st.rerun()
 
 
 def is_date_field(field):
@@ -247,11 +250,16 @@ labels = {row["index"]: f"{row['patient'] or row['number']} | {row['number']}" f
 current = st.session_state.get("selected_index", filtered[0]["index"])
 if current not in labels:
     current = filtered[0]["index"]
-selected = st.sidebar.radio("Registros", [row["index"] for row in filtered], index=[row["index"] for row in filtered].index(current), format_func=labels.get)
-if selected != st.session_state.get("selected_index"):
-    clear_edit_fields()
-    st.session_state.editing_procedures = False
-st.session_state.selected_index = selected
+    navigate(current)
+if "selected_index" not in st.session_state:
+    st.session_state.selected_index = current
+selected = st.sidebar.radio(
+    "Registros",
+    [row["index"] for row in filtered],
+    key="selected_index",
+    format_func=labels.get,
+    on_change=patient_changed,
+)
 
 detail = editor.detail(selected)
 row = next(item for item in rows if item["index"] == selected)
@@ -265,18 +273,18 @@ st.markdown(
 st.caption(f"Arquivo: {st.session_state.file_name} | CNES: {row['cnes']} | {len([r for r in detail['records'] if r['type'] == '13'])} procedimentos")
 first, previous, next_record, last = st.columns(4)
 with first:
-    if st.button("Primeira", disabled=position == 0, use_container_width=True):
-        navigate(rows[0]["index"])
+    st.button("Primeira", disabled=position == 0, use_container_width=True,
+              on_click=navigate, args=(rows[0]["index"],))
 with last:
-    if st.button("Última", disabled=position == len(rows) - 1, use_container_width=True):
-        navigate(rows[-1]["index"])
+    st.button("Última", disabled=position == len(rows) - 1, use_container_width=True,
+              on_click=navigate, args=(rows[-1]["index"],))
 edit, save, download = st.columns([1, 1, 1.5])
 with previous:
-    if st.button("Anterior", disabled=position == 0, use_container_width=True):
-        navigate(rows[position - 1]["index"])
+    st.button("Anterior", disabled=position == 0, use_container_width=True,
+              on_click=navigate, args=(rows[max(0, position - 1)]["index"],))
 with next_record:
-    if st.button("Próxima", disabled=position == len(rows) - 1, use_container_width=True):
-        navigate(rows[position + 1]["index"])
+    st.button("Próxima", disabled=position == len(rows) - 1, use_container_width=True,
+              on_click=navigate, args=(rows[min(len(rows) - 1, position + 1)]["index"],))
 
 editing = st.session_state.get("editing_procedures", False)
 with edit:
